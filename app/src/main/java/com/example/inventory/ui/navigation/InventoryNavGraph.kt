@@ -44,7 +44,7 @@ fun InventoryNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = LoginDestination.route,
+        startDestination = HomeDestination.route,
         modifier = modifier
     ) {
         composable(LoginDestination.route) {

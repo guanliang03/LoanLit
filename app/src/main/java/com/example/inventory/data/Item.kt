@@ -28,5 +28,9 @@ data class Item(
     val id: Int = 0,
     val name: String,
     val price: Double,
-    val quantity: Int
+    val quantity: Int,
+    val location: String = "",
+    val borrowerName: String = "",
+    val itemDetails: String = "",
+    val collected:Boolean = false
 )

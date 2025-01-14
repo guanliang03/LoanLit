@@ -44,6 +44,12 @@ class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewMod
             ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
     }
 
+    /** * Updates only the [collected] property of [itemDetails] */
+    fun updateCollected(collected: Boolean) {
+        val updatedDetails = itemUiState.itemDetails.copy(collected = collected)
+        updateUiState(updatedDetails)
+    }
+
     /**
      * Inserts an [Item] in the Room database
      */
@@ -73,6 +79,10 @@ data class ItemDetails(
     val name: String = "",
     val price: String = "",
     val quantity: String = "",
+    val location: String = "",
+    val borrowerName: String = "",
+    val itemDetails: String = "",
+    val collected: Boolean = false
 )
 
 /**
@@ -84,7 +94,11 @@ fun ItemDetails.toItem(): Item = Item(
     id = id,
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
-    quantity = quantity.toIntOrNull() ?: 0
+    quantity = quantity.toIntOrNull() ?: 0,
+    location = location,
+    borrowerName = borrowerName,
+    itemDetails = itemDetails,
+    collected = collected
 )
 
 fun Item.formatedPrice(): String {
@@ -99,6 +113,7 @@ fun Item.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState
     isEntryValid = isEntryValid
 )
 
+
 /**
  * Extension function to convert [Item] to [ItemDetails]
  */
@@ -106,5 +121,9 @@ fun Item.toItemDetails(): ItemDetails = ItemDetails(
     id = id,
     name = name,
     price = price.toString(),
-    quantity = quantity.toString()
+    quantity = quantity.toString(),
+    location = location,
+    borrowerName = borrowerName,
+    itemDetails = itemDetails,
+    collected = collected
 )

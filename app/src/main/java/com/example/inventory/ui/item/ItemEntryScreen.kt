@@ -18,10 +18,12 @@ package com.example.inventory.ui.item
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -31,15 +33,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.inventory.InventoryTopAppBar
 import com.example.inventory.R
@@ -93,7 +100,8 @@ fun ItemEntryScreen(
                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
                 )
                 .verticalScroll(rememberScrollState())
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            viewModel = viewModel
         )
     }
 }
@@ -103,7 +111,8 @@ fun ItemEntryBody(
     itemUiState: ItemUiState,
     onItemValueChange: (ItemDetails) -> Unit,
     onSaveClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: ItemEntryViewModel?
 ) {
     Column(
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
@@ -112,7 +121,8 @@ fun ItemEntryBody(
         ItemInputForm(
             itemDetails = itemUiState.itemDetails,
             onValueChange = onItemValueChange,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            viewModel = viewModel
         )
         Button(
             onClick = onSaveClick,
@@ -130,54 +140,111 @@ fun ItemInputForm(
     itemDetails: ItemDetails,
     modifier: Modifier = Modifier,
     onValueChange: (ItemDetails) -> Unit = {},
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    viewModel: ItemEntryViewModel?
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
-        OutlinedTextField(
+        TextField(
             value = itemDetails.name,
             onValueChange = { onValueChange(itemDetails.copy(name = it)) },
             label = { Text(stringResource(R.string.item_name_req)) },
             colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
             ),
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
-        OutlinedTextField(
+        TextField(
+            value = itemDetails.borrowerName,
+            onValueChange = { onValueChange(itemDetails.copy(borrowerName = it)) },
+            label = { Text(stringResource(R.string.borrower_name_req)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+        TextField(
             value = itemDetails.price,
             onValueChange = { onValueChange(itemDetails.copy(price = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             label = { Text(stringResource(R.string.item_price_req)) },
             colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
             ),
-            leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
+            //leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
-        OutlinedTextField(
+        TextField(
+            value = itemDetails.location,
+            onValueChange = { onValueChange(itemDetails.copy(location = it)) },
+
+            label = { Text(stringResource(R.string.loc_name_req)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            ),
+            //leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+        TextField(
             value = itemDetails.quantity,
             onValueChange = { onValueChange(itemDetails.copy(quantity = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             label = { Text(stringResource(R.string.quantity_req)) },
             colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
             ),
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
+        TextField(
+            value = itemDetails.itemDetails,
+            onValueChange = { onValueChange(itemDetails.copy(itemDetails = it)) },
+            label = { Text(stringResource(R.string.item_det_req)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = false
+        )
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource((R.string.collected_req)),
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(start = 16.dp)
+            )
+            Switch(
+                checked = itemDetails.collected,
+                onCheckedChange = { collected -> viewModel?.updateCollected(collected)},
+                modifier = Modifier.padding(end = 8.dp)
+            )
+        }
         if (enabled) {
             Text(
                 text = stringResource(R.string.required_fields),
@@ -193,8 +260,13 @@ private fun ItemEntryScreenPreview() {
     InventoryTheme {
         ItemEntryBody(itemUiState = ItemUiState(
             ItemDetails(
-                name = "Item name", price = "10.00", quantity = "5"
+                name = "Item name",
+                price = "10.00",
+                quantity = "5",
+                location = "KPZ",
+                itemDetails = "Something",
+                borrowerName = "Ali"
             )
-        ), onItemValueChange = {}, onSaveClick = {})
+        ), onItemValueChange = {}, onSaveClick = {}, viewModel = null)
     }
 }

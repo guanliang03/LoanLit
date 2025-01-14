@@ -174,22 +174,22 @@ private fun InventoryItem(
         modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(id = R.dimen.padding_large)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = item.name,
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Spacer(Modifier.weight(1f))
-                Text(
-                    text = item.formatedPrice(),
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
+
+            Text(
+                text = item.name,
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Spacer(Modifier.weight(1f))
+            Text(
+                text = item.formatedPrice(),
+                style = MaterialTheme.typography.titleMedium
+            )
+
             Text(
                 text = stringResource(R.string.in_stock, item.quantity),
                 style = MaterialTheme.typography.titleMedium
