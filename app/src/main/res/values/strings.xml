@@ -14,6 +14,18 @@
   ~ limitations under the License.
   -->
 <resources>
+
+    <string name="login_title">Login</string>
+    <string name="login_header">Welcome Back</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="home_title">Home</string>
+    <string name="add_item">Add Item</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_action">Login</string>
+
     <string name="app_name">Inventory</string>
     <string name="attention">Attention</string>
     <string name="back_button">Back</string>

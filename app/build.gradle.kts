@@ -55,7 +55,11 @@ android {
     }
     buildFeatures {
         compose = true
+        dataBinding = true
     }
+
+
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -85,4 +89,17 @@ dependencies {
     // Testing
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
+
+
+
+// Room components
+//    val life_versions = "1.1.1"
+//    implementation ("android.arch.persistence.room:runtime:$life_versions")
+//    annotationProcessor ("android.arch.persistence.room:compiler:$life_versions")
+//    androidTestImplementation ("android.arch.persistence.room:testing:$life_versions")
+
+// Lifecycle components
+//    implementation ("android.arch.lifecycle:extensions:$life_versions")
+//    annotationProcessor( "android.arch.lifecycle:compiler:$life_versions")
+
 }

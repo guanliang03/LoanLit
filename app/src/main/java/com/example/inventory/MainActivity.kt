@@ -28,14 +28,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+
+        val loginRepository = (application as InventoryApplication).container.loginRepository
+
+        if (BuildConfig.DEBUG) {
+            insertTestLoginData(loginRepository)
+        }
+
         setContent {
-            InventoryTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    InventoryApp()
-                }
+            InventoryApp()
             }
         }
     }
-}
+
+
+
+

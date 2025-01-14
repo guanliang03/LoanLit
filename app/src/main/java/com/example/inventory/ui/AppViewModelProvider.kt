@@ -23,10 +23,13 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.inventory.InventoryApplication
+import com.example.inventory.data.LoginRepository
 import com.example.inventory.ui.home.HomeViewModel
 import com.example.inventory.ui.item.ItemDetailsViewModel
 import com.example.inventory.ui.item.ItemEditViewModel
 import com.example.inventory.ui.item.ItemEntryViewModel
+import com.example.inventory.ui.login.LoginViewModel
+
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -57,6 +60,15 @@ object AppViewModelProvider {
         initializer {
             HomeViewModel(inventoryApplication().container.itemsRepository)
         }
+
+
+        initializer {
+            LoginViewModel(
+                inventoryApplication().applicationContext as Application,
+                inventoryApplication().container.loginRepository
+            )
+        }
+
     }
 }
 
