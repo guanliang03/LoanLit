@@ -64,7 +64,7 @@ import com.seis2.loanlit.ui.theme.InventoryTheme
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
-    override val titleRes = R.string.app_name
+    override val titleRes = R.string.home
 }
 
 /**
@@ -183,15 +183,48 @@ private fun InventoryItem(
                 text = item.name,
                 style = MaterialTheme.typography.titleLarge,
             )
+
             Spacer(Modifier.weight(1f))
+
             Text(
-                text = item.formatedPrice(),
+                text = stringResource(R.string.borrower_name, item.borrowerName),
                 style = MaterialTheme.typography.titleMedium
             )
+
+            Spacer(Modifier.weight(0.25f))
+
+            Text(
+                text = stringResource(R.string.deposit, item.formatedPrice()),
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Spacer(Modifier.weight(0.25f))
+
+            Text(
+                text = stringResource(R.string.loc),
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = item.location,
+                style = MaterialTheme.typography.titleSmall
+            )
+
+            Spacer(Modifier.weight(0.25f))
 
             Text(
                 text = stringResource(R.string.in_stock, item.quantity),
                 style = MaterialTheme.typography.titleMedium
+            )
+
+            Spacer(Modifier.weight(0.25f))
+
+            Text(
+                text = stringResource(R.string.remarks),
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = item.itemDetails,
+                style = MaterialTheme.typography.titleSmall
             )
         }
     }
@@ -202,7 +235,7 @@ private fun InventoryItem(
 fun HomeBodyPreview() {
     InventoryTheme {
         HomeBody(listOf(
-            Item(1, "Game", 100.0, 20), Item(2, "Pen", 200.0, 30), Item(3, "TV", 300.0, 50)
+            Item(1, "Game", 100.0, 20, "KPZ", "Ali", "ABC Game", false), Item(2, "Pen", 200.0, 30, "KIY", "Siti", "DEF pen", false), Item(3, "TV", 300.0, 50, "KUO","Alan", "GHI TV", true)
         ), onItemClick = {})
     }
 }
@@ -220,7 +253,7 @@ fun HomeBodyEmptyListPreview() {
 fun InventoryItemPreview() {
     InventoryTheme {
         InventoryItem(
-            Item(1, "Game", 100.0, 20),
+            Item(1, "Game", 100.0, 20, "KPZ", "Ali", "ABC Game", false),
         )
     }
 }
