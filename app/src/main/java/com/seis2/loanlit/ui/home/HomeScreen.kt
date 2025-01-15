@@ -16,23 +16,29 @@
 
 package com.seis2.loanlit.ui.home
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -46,10 +52,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,6 +71,8 @@ import com.seis2.loanlit.ui.AppViewModelProvider
 import com.seis2.loanlit.ui.item.formatedPrice
 import com.seis2.loanlit.ui.navigation.NavigationDestination
 import com.seis2.loanlit.ui.theme.InventoryTheme
+import androidx.compose.ui.unit.dp
+
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
@@ -171,7 +183,13 @@ private fun InventoryItem(
     item: Item, modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            disabledContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
+        )
     ) {
         Column(
             modifier = Modifier
@@ -227,6 +245,25 @@ private fun InventoryItem(
                 text = item.itemDetails,
                 style = MaterialTheme.typography.titleSmall
             )
+
+            Spacer(Modifier.weight(0.25f))
+
+            Row(
+                modifier = Modifier
+                    .border(width = 3.dp, color = Color(0x494d4aff), shape = MaterialTheme.shapes.medium)
+                    .padding(all = 10.dp),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = if(item.collected)R.drawable.tick else R.drawable.cross),
+                    contentDescription = "Icon",
+                    modifier = Modifier.width(16.dp).height(16.dp)
+                )
+                Spacer (modifier = Modifier.width(8.dp))
+                Text (text = if(item.collected)"Item Collected" else "Item Yet To Collect", style = MaterialTheme.typography.bodyMedium)
+            }
+
         }
     }
 }
@@ -236,7 +273,9 @@ private fun InventoryItem(
 fun HomeBodyPreview() {
     InventoryTheme {
         HomeBody(listOf(
-            Item(1, "Game", 100.0, 20, "KPZ", "Ali", "ABC Game", false), Item(2, "Pen", 200.0, 30, "KIY", "Siti", "DEF pen", false), Item(3, "TV", 300.0, 50, "KUO","Alan", "GHI TV", true)
+            Item(1, "Game", 100.0, 20, "KPZ", "Ali", "ABC Game", false),
+            Item(2, "Pen", 200.0, 30, "KIY", "Siti", "DEF pen", false),
+            Item(3, "TV", 300.0, 50, "KUO", "Alan", "GHI TV", true)
         ), onItemClick = {})
     }
 }
