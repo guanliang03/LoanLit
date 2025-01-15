@@ -38,6 +38,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -243,7 +244,8 @@ fun ItemInputForm(
         if (enabled) {
             Text(
                 text = stringResource(R.string.required_fields),
-                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
+                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium)),
+                color = MaterialTheme.colorScheme.error
             )
         }
     }

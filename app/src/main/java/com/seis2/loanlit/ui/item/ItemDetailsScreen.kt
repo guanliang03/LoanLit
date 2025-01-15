@@ -147,7 +147,7 @@ private fun ItemDetailsBody(
         var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
         ItemDetails(
             item = itemDetailsUiState.itemDetails.toItem(), modifier = Modifier.fillMaxWidth()
-        )
+        )/*
         Button(
             onClick = onSellItem,
             modifier = Modifier.fillMaxWidth(),
@@ -155,7 +155,7 @@ private fun ItemDetailsBody(
             enabled = !itemDetailsUiState.outOfStock
         ) {
             Text(stringResource(R.string.sell))
-        }
+        }*/
         OutlinedButton(
             onClick = { deleteConfirmationRequired = true },
             shape = MaterialTheme.shapes.small,
@@ -204,8 +204,8 @@ fun ItemDetails(
                 )
             )
             ItemDetailsRow(
-                labelResID = R.string.quantity_in_stock,
-                itemDetail = item.quantity.toString(),
+                labelResID = R.string.borrower_name_,
+                itemDetail = item.borrowerName,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -223,6 +223,47 @@ fun ItemDetails(
                     )
                 )
             )
+            ItemDetailsRow(
+                labelResID = R.string.loc_name,
+                itemDetail = item.location,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(
+                        id = R.dimen
+                            .padding_medium
+                    )
+                )
+            )
+            ItemDetailsRow(
+                labelResID = R.string.quantity_in_stock,
+                itemDetail = item.quantity.toString(),
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(
+                        id = R.dimen
+                            .padding_medium
+                    )
+                )
+            )
+            ItemDetailsRow(
+                labelResID = R.string.item_det_req,
+                itemDetail = item.itemDetails,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(
+                        id = R.dimen
+                            .padding_medium
+                    )
+                )
+            )
+            ItemDetailsRow(
+                labelResID = R.string.is_collected,
+                itemDetail = if(item.collected)"Yes" else "No",
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(
+                        id = R.dimen
+                            .padding_medium
+                    )
+                )
+            )
+
         }
 
     }
@@ -264,7 +305,7 @@ private fun DeleteConfirmationDialog(
 fun ItemDetailsScreenPreview() {
     InventoryTheme {
         ItemDetailsBody(ItemDetailsUiState(
-            outOfStock = true, itemDetails = ItemDetails(1, "Pen", "$100", "10")
+            outOfStock = true, itemDetails = ItemDetails(1, "Pen", "$100", "10","UKM", "Lily","A Pen", false)
         ), onSellItem = {}, onDelete = {})
     }
 }
