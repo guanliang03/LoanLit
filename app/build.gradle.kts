@@ -90,6 +90,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
 
+    //Use Google font
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.7.6")
+
 
 
 // Room components

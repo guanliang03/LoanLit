@@ -33,6 +33,7 @@ import com.seis2.loanlit.ui.item.ItemEntryDestination
 import com.seis2.loanlit.ui.item.ItemEntryScreen
 import com.seis2.loanlit.ui.login.LoginDestination
 import com.seis2.loanlit.ui.login.LoginScreen
+import com.seis2.loanlit.ui.theme.InventoryTheme
 
 /**
  * Provides Navigation graph for the application.
@@ -42,6 +43,7 @@ fun InventoryNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
+    InventoryTheme {
     NavHost(
         navController = navController,
         startDestination = HomeDestination.route,
@@ -91,5 +93,5 @@ fun InventoryNavHost(
                 onNavigateUp = { navController.navigateUp() }
             )
         }
-    }
+    }}
 }
