@@ -26,6 +26,6 @@ class AppDataContainer(private val context: Context) : AppContainer {
      * Implementation for [LoginRepository]
      */
     override val loginRepository: LoginRepository by lazy {
-        LoginRepository(context.applicationContext as Application)
+        LoginRepository(LoginDatabase.getDatabase( context).loginDao())
     }
 }

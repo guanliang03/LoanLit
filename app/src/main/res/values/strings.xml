@@ -22,7 +22,7 @@
     <string name="login_button">Login</string>
     <string name="home_title">Home</string>
     <string name="add_item">Add Item</string>
-    <string name="username">Username</string>
+    <string name="username">Matric Number</string>
     <string name="password">Password</string>
     <string name="login_action">Login</string>
 
@@ -52,6 +52,7 @@
     <string name="quantity_req">Borrowing Quantity*</string>
     <string name="save_action">Save</string>
     <string name="yes">Yes</string>
+    <string name="register_account">Register Account</string>
     <string name="is_collected">Is item collected?</string>
     <string name="required_fields">*required fields</string>\
     <string name="home">LoanLit Home</string>

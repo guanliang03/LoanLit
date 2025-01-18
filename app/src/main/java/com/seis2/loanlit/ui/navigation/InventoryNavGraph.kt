@@ -46,13 +46,13 @@ fun InventoryNavHost(
     InventoryTheme {
     NavHost(
         navController = navController,
-        startDestination = HomeDestination.route,
+        startDestination = LoginDestination.route,
         modifier = modifier
     ) {
-        composable(LoginDestination.route) {
-            LoginScreen(navigateToHome = { navController.navigate(HomeDestination.route) })
+        composable(route=LoginDestination.route) {
+            LoginScreen(
+                navigateToHome = { navController.navigate(HomeDestination.route) })
         }
-
 
 
 
@@ -62,7 +62,8 @@ fun InventoryNavHost(
                 navigateToItemEntry = { navController.navigate(ItemEntryDestination.route) },
                 navigateToItemUpdate = {
                     navController.navigate("${ItemDetailsDestination.route}/${it}")
-                }
+                },
+                navigateBack = { navController.navigateUp() }
             )
         }
         composable(route = ItemEntryDestination.route) {

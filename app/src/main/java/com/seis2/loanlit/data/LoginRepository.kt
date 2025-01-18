@@ -2,26 +2,19 @@ package com.seis2.loanlit.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+class LoginRepository(private val loginDao: LoginDao) {
 
-class LoginRepository(application: Application) {
-    private val loginDao: LoginDao
-    val allLoginData: LiveData<List<LoginTable>>
-
-    init {
-        val database = LoginDatabase.getDatabase(application)
-        loginDao = database.loginDao()
-        allLoginData = loginDao.getDetails() // Ensure DAO return type matches LiveData<List<LoginTable>>
+    // Validate login credentials
+    suspend fun validateLogin(email: String, password: String): LoginTable? {
+        return loginDao.getLoginDetailsByEmailAndPassword(email, password)
     }
 
-    suspend fun insertLoginData(loginData: LoginTable) {
-        loginDao.insertDetails(loginData)
+    // Insert new login details into the database
+    suspend fun insertLoginDetails(loginTable: LoginTable) {
+        loginDao.insertDetails(loginTable)
     }
-
-    suspend fun deleteAllLoginData() {
-        loginDao.deleteAllData()
-    }
-
-
 }
+
+
 
 

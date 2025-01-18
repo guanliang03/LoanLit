@@ -16,26 +16,34 @@
 package com.seis2.loanlit
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.seis2.loanlit.data.LoginRepository
+import com.seis2.loanlit.data.LoginTable
+import com.seis2.loanlit.ui.login.LoginViewModel
+import com.seis2.loanlit.ui.theme.InventoryTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
+        enableEdgeToEdge()  // Set up edge-to-edge UI
         super.onCreate(savedInstanceState)
-
         val loginRepository = (application as InventoryApplication).container.loginRepository
+        val loginViewModel = LoginViewModel(application = application, loginRepository = loginRepository)
 
-        if (BuildConfig.DEBUG) {
-            insertTestLoginData(loginRepository)
-        }
-
+        // Set the content view with the InventoryApp UI
         setContent {
-            InventoryApp()
+            InventoryTheme {
+                InventoryApp()
             }
         }
     }
+}
+
 
 
 
