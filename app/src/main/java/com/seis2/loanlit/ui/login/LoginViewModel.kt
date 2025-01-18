@@ -38,7 +38,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
             if (login != null) {
                 loginSuccess.postValue(true)  // Set login success
             } else {
-                errorMessage.postValue("Invalid email or password")  // Set error message
+                errorMessage.postValue("Invalid Matric Number or Password")  // Set error message
             }
         }
     }

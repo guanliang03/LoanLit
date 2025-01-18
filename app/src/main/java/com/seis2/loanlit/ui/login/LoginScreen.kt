@@ -57,6 +57,7 @@ fun LoginScreen(
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var formError by remember { mutableStateOf<String?>(null) }  // To hold error message for empty fields
 
     // Reset the state when the login screen is recomposed
     LaunchedEffect(Unit) {
@@ -107,7 +108,17 @@ fun LoginScreen(
                 singleLine = true
             )
 
-            // Show error message if exists
+            // Show error message for form validation
+            if (!formError.isNullOrEmpty()) {
+                Text(
+                    text = formError ?: "",
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
+                )
+            }
+
+            // Show error message from login attempt if exists
             if (!errorMessage.isNullOrEmpty()) {
                 Text(
                     text = errorMessage ?: "",
@@ -126,10 +137,16 @@ fun LoginScreen(
                 Text(stringResource(R.string.register_account))
             }
 
-            // Login button
+            // Login button with validation for empty email and password
             Button(
                 onClick = {
-                    viewModel.validateLogin(email, password) // Start login process
+                    // Validate email and password
+                    if (email.isBlank() || password.isBlank()) {2
+                        formError = "Matric Number and Password must not be empty"
+                    } else {
+                        formError = null
+                        viewModel.validateLogin(email, password) // Start login process
+                    }
                 },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !isLoading  // Disable button while loading
