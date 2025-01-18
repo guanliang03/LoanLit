@@ -15,7 +15,7 @@
   -->
 <resources>
 
-    <string name="login_title">Login</string>
+    <string name="login_title">Sign in</string>
     <string name="login_header">Welcome Back</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
